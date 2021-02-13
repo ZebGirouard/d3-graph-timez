@@ -1,25 +1,59 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react'
+import {
+  BrowserRouter as Router,
+  Link,
+  Switch,
+  Route,
+} from 'react-router-dom'
+import {
+  Nav,
+  Navbar,
+  NavItem,
+} from 'reactstrap'
 
-function App() {
+import './App.css'
+import {
+  BarChart,
+  Home,
+  Temperatures,
+} from './screens'
+
+const App = () => {
+  const [ user, setUser ] = useState({})
+  // cuz my linter is intense
+  console.log(user, setUser)
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Router>
+        <Navbar>
+          <Nav className="flex-row">
+            <NavItem>
+              <Link className="nav-link" to="/">Home</Link>
+            </NavItem>
+            <NavItem>
+              <Link className="nav-link" to="/temperatures">Temperatures</Link>
+            </NavItem>
+            <NavItem>
+              <Link className="nav-link" to="/bar-chart">Bar Chart</Link>
+            </NavItem>
+          </Nav>
+        </Navbar>
+        <div>
+          <Switch>
+            <Route path="/bar-chart">
+              <BarChart />
+            </Route>
+            <Route path="/temperatures">
+              <Temperatures />
+            </Route>
+            <Route path="/">
+              <Home />
+            </Route>
+          </Switch>
+        </div>
+      </Router>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
